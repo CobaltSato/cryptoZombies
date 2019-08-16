@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/zombie.css">
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -29,11 +30,103 @@
 
     </header>
     <div class="container">
-    <div class="content">
-      <button type="button" name="button" id="ourButton"> 今日の運勢は？ </button>
-                     <input type="text" class="form-control" placeholder="348ce5..." aria-label="inputKey"
-                            aria-describedby="basic-addon1" id="nameInput"
-                            value="">
+        <div class="content">
+            <button type="button" name="button" id="ourButton"> ゾンビの名前 </button>
+            <input type="text" class="form-control" placeholder="doppio" aria-label="inputKey"
+                aria-describedby="basic-addon1" id="nameInput" value="">
+        </div>
+        <div class="card">
+            <div class="card-header"></div>
+            <div class="card-body row" id="zombieList">
+                <div class="col-sm-4 hide" id="model">
+                    <div class="card" style=" position: relative; height:40vh; width: 23vh  ">
+                        <img src="assets/zombies_image/left-feet.png" class="cloth card-img-top legs left-feet"
+                            style="filter: hue-rotate(251deg);">
+                        <img src="assets/zombies_image/right-feet.png" class="cloth card-img-top legs right-feet"
+                            style="filter: hue-rotate(251deg);">
+                        <img src="assets/zombies_image/left-leg.png" class="cloth card-img-top legs left-leg"
+                            style="filter: hue-rotate(251deg);">
+                        <img src="assets/zombies_image/right-leg.png" class="cloth card-img-top legs right-leg"
+                            style="filter: hue-rotate(251deg);">
+                        <img src="assets/zombies_image/left-thigh.png" class="cloth card-img-top legs left-thigh"
+                            style="filter: hue-rotate(251deg);">
+                        <img src="assets/zombies_image/right-thigh.png" class="cloth card-img-top legs right-thigh"
+                            style="filter: hue-rotate(251deg);">
+                        <img src="assets/zombies_image/left-forearm.png" class="skin card-img-top left-forearm"
+                            style="filter: hue-rotate(111deg);">
+                        <img src="assets/zombies_image/right-forearm.png" class="skin card-img-top right-forearm"
+                            style="filter: hue-rotate(111deg);">
+                        <img src="assets/zombies_image/right-upper-arm.png" class="skin card-img-top right-upper-arm"
+                            style="filter: hue-rotate(111deg);">
+                        <img src="assets/zombies_image/torso.png" class="cloth card-img-top torso"
+                            style="filter: hue-rotate(251deg);">
+                        <img src="assets/zombies_image/catlegs.png" class="cloth card-img-top cat-legs hide"
+                            style="filter: hue-rotate(251deg);">
+                        <img src="assets/zombies_image/shirt-1.png" class="cloth card-img-top shirt shirt-part-1"
+                            style="filter: hue-rotate(251deg);">
+                        <img src="assets/zombies_image/shirt-2.png" class="cloth card-img-top shirt shirt-part-2"
+                            style="filter: hue-rotate(251deg);">
+                        <img src="assets/zombies_image/shirt-3.png" class="cloth card-img-top shirt shirt-part-3"
+                            style="filter: hue-rotate(251deg);">
+                        <img src="assets/zombies_image/shirt-4.png" class="cloth card-img-top shirt shirt-part-4"
+                            style="filter: hue-rotate(251deg);">
+                        <img src="assets/zombies_image/shirt-5.png" class="cloth card-img-top shirt shirt-part-5"
+                            style="filter: hue-rotate(251deg);">
+                        <img src="assets/zombies_image/shirt-6.png" class="cloth card-img-top shirt shirt-part-6"
+                            style="filter: hue-rotate(251deg);">
+                        <img src="assets/zombies_image/left-upper-arm.png" class="skin card-img-top left-upper-arm"
+                            style="filter: hue-rotate(111deg);">
+                        <img src="assets/zombies_image/left-forearm.png" class="skin card-img-top left-forearm"
+                            style="filter: hue-rotate(111deg);">
+                        <img src="assets/zombies_image/right-forearm.png" class="skin card-img-top right-forearm"
+                            style="filter: hue-rotate(111deg);">
+                        <img src="assets/zombies_image/left-hand.png" class="skin card-img-top left-hand"
+                            style="filter: hue-rotate(111deg);">
+                        <img src="assets/zombies_image/right-hand.png" class="skin card-img-top right-hand"
+                            style="filter: hue-rotate(111deg);">
+                        <img src="assets/zombies_image/head-1.png" class="skin card-img-top head head-part-1"
+                            style="filter: hue-rotate(111deg);">
+                        <img src="assets/zombies_image/head-2.png" class="skin card-img-top head head-part-2"
+                            style="filter: hue-rotate(111deg);">
+                        <img src="assets/zombies_image/head-3.png" class="skin card-img-top head head-part-3"
+                            style="filter: hue-rotate(111deg);">
+                        <img src="assets/zombies_image/head-4.png" class="skin card-img-top head head-part-4"
+                            style="filter: hue-rotate(111deg);">
+                        <img src="assets/zombies_image/head-5.png" class="skin card-img-top head head-part-5"
+                            style="filter: hue-rotate(111deg);">
+                        <img src="assets/zombies_image/head-6.png" class="skin card-img-top head head-part-6"
+                            style="filter: hue-rotate(111deg);">
+                        <img src="assets/zombies_image/head-7.png" class="skin card-img-top head head-part-7"
+                            style="filter: hue-rotate(111deg);">
+                        <img src="assets/zombies_image/eyes-1.png" class="eye eye-part-1"
+                            style="filter: hue-rotate(219deg);">
+                        <img src="assets/zombies_image/eyes-2.png" class="eye eye-part-2"
+                            style="filter: hue-rotate(219deg);">
+                        <img src="assets/zombies_image/eyes-3.png" class="eye eye-part-3"
+                            style="filter: hue-rotate(219deg);">
+                        <img src="assets/zombies_image/eyes-4.png" class="eye eye-part-4"
+                            style="filter: hue-rotate(219deg);">
+                        <img src="assets/zombies_image/eyes-5.png" class="eye eye-part-5"
+                            style="filter: hue-rotate(219deg);">
+                        <img src="assets/zombies_image/eyes-6.png" class="eye eye-part-6"
+                            style="filter: hue-rotate(219deg);">
+                        <img src="assets/zombies_image/eyes-7.png" class="eye eye-part-7"
+                            style="filter: hue-rotate(219deg);">
+                        <img src="assets/zombies_image/eyes-8.png" class="card-img-top eye eye-part-8"
+                            style="filter: hue-rotate(219deg);">
+                        <img src="assets/zombies_image/eyes-9.png" class="card-img-top eye eye-part-9"
+                            style="filter: hue-rotate(219deg);">
+                        <img src="assets/zombies_image/eyes-10.png" class="card-img-top eye eye-part-10"
+                            style="filter: hue-rotate(219deg);">
+                        <img src="assets/zombies_image/eyes-11.png" class="card-img-top eye eye-part-11"
+                            style="filter: hue-rotate(219deg);">
+                        <img src="assets/zombies_image/mouth.png" class="card-img-top mouth">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
     </div>
     </div>
     <script src="./src/js/index.js"></script>

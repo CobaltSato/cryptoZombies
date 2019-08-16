@@ -170,6 +170,28 @@ var contractABI = [
     },
     {
       "constant": false,
+      "inputs": [
+        {
+          "name": "_zombieId",
+          "type": "uint256"
+        },
+        {
+          "name": "_targetDna",
+          "type": "uint256"
+        },
+        {
+          "name": "_species",
+          "type": "string"
+        }
+      ],
+      "name": "feedAndMultiply",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
       "inputs": [],
       "name": "renounceOwnership",
       "outputs": [],
