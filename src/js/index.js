@@ -1,6 +1,7 @@
 var contract;
 var userAccount;
 async function startApp() {
+    ethereum.enable();
     await web3.eth.getAccounts((error, accounts) => {
         if (accounts[0] !== userAccount) {
             userAccount = accounts[0];
