@@ -1,7 +1,5 @@
 var contract;
 var userAccount;
-var contractAddress = "0x1150aFBE434Db783fD62e0Bff2D74217f53EF262";
-
 async function startApp() {
     await web3.eth.getAccounts((error, accounts) => {
         if (accounts[0] !== userAccount) {
@@ -12,36 +10,55 @@ async function startApp() {
         await web3.eth.getAccounts(async (error, accounts) => {
             if (accounts[0] != userAccount) {
                 userAccount = accounts[0];
+                window.location.href = "./index.html";
             }
         })
     }, 100);
 
     contract = await new web3.eth.Contract(contractABI, contractAddress);
 
-    // Listen for the `NewZombie` event, and update the UI
+    await contract.methods.getZombiesByOwner(userAccount).call()
+    .then(async (userZombies) => {
+        for(let i = 0; i < userZombies.length; ++i){
+                await contract.methods.zombies(userZombies[i]).call().
+                 then((zombie) => {
+                    document.getElementById('signUp').classList.add('hide');
+                    document.getElementById('yourZombies').classList.remove('hide');
+                    let details = calcZombieDetails(zombie, userZombies[i])
+                    displayZombie(details, 'zombieList');
+                });
+        }
+    });
+
     await contract.events.NewZombie({
-        fromBlock: 0
-    }, function (error, event) {
-        contract.methods.ownerOf(event.returnValues.zombieId).call().then((owner) => {
+        fromBlock: web3.eth.blockNumber
+    }, async (error, event) => {
+        await contract.methods.ownerOf(event.returnValues.zombieId).call().then(async (owner) => {
             if (owner === userAccount) {
                 document.getElementById('signUp').classList.add('hide');
                 document.getElementById('yourZombies').classList.remove('hide');
                 let ret = event.returnValues;
-                contract.methods.zombies(ret.zombieId).call().then((zombie) => {
-                    generateZombie(ret.zombieId, 
-                        ret.name, ret.dna, 
-                    'zombieList',
-                    zombie.readyTime,
-                    zombie.level);
+                await contract.methods.zombies(ret.zombieId).call().then((zombie) => {
+                    generateZombie(zombie,'zombieList', ret.zombieId);
+                    console.log(zombie);
                 });
             }
         }, false);
-        //console.log(event);
     })
-        .on('error', console.error);
-    generateZombie(-1, "NO NAME", "0000000000000000", 'preview');
-    displayZombieDetailsOnPreview(calcZombieDetails(-1, "NO NAME", '0000000000000000'));
+    .on('error', console.error);
+    let zombie = {
+                name: "NO DATA",
+                dna: "0000000000000000",
+                level: -1,
+                readyTime: -1,
+                winCount: -1,
+                lossCount: -1,
+            }
+   let details = calcZombieDetails(zombie);
+   displayZombie(details,'preview');
+   displayZombieDetailsOnPreview(details);
 }
+
 
 window.addEventListener('load', () => {
     if (typeof web3 !== 'undefined') {
@@ -68,39 +85,28 @@ $("#btnCreateZombie").click(async function (e) {
 
 
 
-function onReadyTime(strTime){
-    intTime = parseInt(strTime);
-    var date = new Date();
-    if(date.getTime() > intTime)
-        return " Yes";
-    var d = new Date( intTime );
-    var year  = d.getFullYear();
-    var d = new Date( intTime );
-    var y = new Date( intTime * 1000 );
-    var year  = y.getFullYear();
-    var month = d.getMonth() + 1;
-    var day  = d.getDate();
-    var hour = ( '0' + d.getHours() ).slice(-2);
-    var min  = ( '0' + d.getMinutes() ).slice(-2);
-    var sec   = ( '0' + d.getSeconds() ).slice(-2);
-
-    return( year + '/' + month + '/' + day + ' ' + hour + ':' + min + ':' + sec );
-}
-
 // detect name input at real time 
 // then, display the preview of the named zombie  
 //============================================================
 $(function () {
     var $input = $('#nameInput');
-    $input.on('input', function (event) {
+    $input.on('input', async (event) => {
         var name = $input.val();
         // get DNA from SC
-        contract.methods.generateRandomDna(name).call().then((dna) => {
+        await contract.methods.generateRandomDna(name).call().then((dna) => {
             var preview = document.getElementById('preview');
             while (preview.firstChild) preview.removeChild(preview.firstChild);
 
-            displayZombieDetailsOnPreview(calcZombieDetails(-1, name, dna));
-            generateZombie(-1, name, dna, 'preview');
+            let zombie = {
+                name: name,
+                dna: dna,
+                level: -1,
+                readyTime: -1,
+                winCount: -1,
+                lossCount: -1,
+            }
+            displayZombieDetailsOnPreview(calcZombieDetails(zombie));
+            generateZombie(zombie, 'preview');
         }, false);
 
     });
@@ -121,7 +127,3 @@ function displayZombieDetailsOnPreview(zombieDetails) {
         "服の色の遺伝子: " + zombieDetails.clothesColorChoice;
     
 }
-
-// TEST
-//generateZombie(1, "a", "2053823161706508");
-//generateZombie(1, "a", "4871286036524799");

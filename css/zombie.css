@@ -128,3 +128,15 @@
 .zombie-name {
   font-weight: bold;
 }
+.checkImg{
+  width: 3vh;
+  left: 0.5vh;
+  top: 0.5vh;
+}
+
+.kittyImg{
+  left: -10vh;
+  top: 10vh;
+  width: 23vh;
+  height: 40vh;
+}
